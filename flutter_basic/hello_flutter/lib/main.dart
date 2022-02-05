@@ -4,25 +4,34 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My First Flutter App',
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-      ),
-      home: Container(
-        color: Colors.black12,
-        child: Center(
-          child: Text(
-            'Hello\nFlutter!',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.indigoAccent, fontSize: 40),
-          ),
-        ),
-      ),
-    );
+  State<StatefulWidget> createState() {
+    return _MyApp();
   }
 }
 
+class _MyApp extends State<MyApp> {
+  var switchValue = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'My First Flutter App',
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: Scaffold(
+            body: Center(
+          child: Switch(
+              value: switchValue,
+              onChanged: (value) {
+                setState(() {
+                  print(value);
+                  switchValue = value;
+                });
+              }),
+        )));
+  }
+}
